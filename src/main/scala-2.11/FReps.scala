@@ -58,3 +58,15 @@ case class Box( val xmin: Double = -5, val xmax: Double = 5,
   val xy = Intersection(x,y)
   def f(c: Coordinate): Double = Intersection(xy, z).f(c)
 }
+
+case class InfCylinderX(val radius: Double) extends FRep {
+  def f(c:Coordinate): Double = radius*radius - c.y*c.y - c.z*c.z
+}
+
+case class CylinderX(val radius: Double, val height: Double) extends FRep {
+  val infcylinderx = InfCylinderX(radius)
+  val ltx = _LtX(height/2)
+  val gtx = _GtX(-height/2)
+  val x = Intersection(ltx, gtx)
+  def f(c: Coordinate): Double = Intersection(infcylinderx, x).f(c)
+}
