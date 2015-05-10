@@ -8,7 +8,7 @@ import BoundaryPositions._
 class Space(val xmin: Double = -50, val xmax: Double = 50,
             val ymin: Double = -50, val ymax: Double = 50,
             val zmin: Double = -50, val zmax: Double = 50,
-            val step: Double = .1) extends Iterable[Coordinate] {
+            val step: Double = .5) extends Iterable[Coordinate] {
 
   def iterator = new Iterator[Coordinate] {
     var x: Double = xmin

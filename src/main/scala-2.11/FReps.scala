@@ -3,6 +3,7 @@
  */
 package scafrep.FReps
 import scafrep._
+import Booleans._
 
 case class EPoint(val c: Coordinate, val value: Double)
 {
@@ -17,4 +18,43 @@ trait FRep {
 
 case class Sphere(val radius: Double = 10) extends FRep {
   def f(c: Coordinate): Double = radius - c.length()
+}
+
+case class _GtX(val x: Double) extends FRep {
+  def f(c: Coordinate): Double = c.x - x
+}
+
+case class _LtX(val x: Double) extends FRep {
+  def f(c: Coordinate): Double = x - c.x
+}
+case class _GtY(val y: Double) extends FRep {
+  def f(c: Coordinate): Double = c.y - y
+}
+
+case class _LtY(val y: Double) extends FRep {
+  def f(c: Coordinate): Double = y - c.y
+}
+case class _GtZ(val z: Double) extends FRep {
+  def f(c: Coordinate): Double = c.z - z
+}
+case class _LtZ(val z: Double) extends FRep {
+  def f(c: Coordinate): Double = z - c.z
+}
+
+case class Box( val xmin: Double = -5, val xmax: Double = 5,
+                val ymin: Double = -5, val ymax: Double = 5,
+                val zmin: Double = -5, val zmax: Double = 5)
+          extends FRep
+{
+  val ltx = _LtX(xmax)
+  val gtx = _GtX(xmin)
+  val x = Intersection(ltx,gtx)
+  val lty = _LtY(ymax)
+  val gty = _GtY(ymin)
+  val y = Intersection(lty, gty)
+  val ltz = _LtZ(zmax)
+  val gtz = _GtZ(zmin)
+  val z = Intersection(ltz, gtz)
+  val xy = Intersection(x,y)
+  def f(c: Coordinate): Double = Intersection(xy, z).f(c)
 }
