@@ -7,11 +7,11 @@ import scafrep.FReps._
 import scafrep._
 
 case class Translate(val fRep: FRep, val shift: Coordinate) extends FRep {
-  def evaluate(c: Coordinate, epsilon: Double): Geometry = fRep.evaluate(c + shift, epsilon)
+  def f(c: Coordinate) = fRep.f(c+shift)
 }
 
 case class Identity(val fRep: FRep) extends FRep {
-  def evaluate(c: Coordinate, epsilon: Double): Geometry = fRep.evaluate(c, epsilon)
+  def f(c: Coordinate) = fRep.f(c)
 }
 
 //case class Rotation(val fRep: FRep, val axis: Coordinate, angle: Double) {

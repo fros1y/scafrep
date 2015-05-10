@@ -6,7 +6,6 @@ import scafrep._
 import FReps._
 import Booleans._
 import Transform._
-import BoundaryPositions._
 
 object main extends App {
   val space = new Space()

@@ -8,13 +8,17 @@ import scafrep._
 
 
 case class Union(val a: FRep, val b: FRep) extends FRep {
-  def evaluate(c: Coordinate, epsilon: Double): Geometry = a.evaluate(c, epsilon) || b.evaluate(c, epsilon)
+  def f(c: Coordinate) = {
+    val fa = a.f(c)
+    val fb = b.f(c)
+    fa + fb + math.sqrt(fa * fa + fb * fb)
+  }
 }
 
 case class Intersection(val a: FRep, val b: FRep) extends FRep {
-  def evaluate(c: Coordinate, epsilon: Double): Geometry = a.evaluate(c, epsilon) && b.evaluate(c, epsilon)
-}
-
-case class Difference(val a: FRep, val b: FRep) extends FRep {
-  def evaluate(c: Coordinate, epsilon: Double): Geometry = a.evaluate(c, epsilon) - b.evaluate(c, epsilon)
+  def f(c: Coordinate) = {
+    val fa = a.f(c)
+    val fb = b.f(c)
+    fa + fb - math.sqrt(fa * fa + fb * fb)
+  }
 }
