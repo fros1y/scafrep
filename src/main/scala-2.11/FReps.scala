@@ -70,3 +70,8 @@ case class CylinderX(val radius: Double, val height: Double) extends FRep {
   val x = Intersection(ltx, gtx)
   def f(c: Coordinate): Double = Intersection(infcylinderx, x).f(c)
 }
+
+case class TorusX(val radius: Double, val revolution: Double) extends FRep {
+  def f(c: Coordinate): Double = math.pow(revolution - math.sqrt(c.x*c.x + c.y*c.y),2) + c.z*c.z - radius*radius
+    //radius*radius - c.y*c.y - c.z*c.z - revolution*revolution + 2*revolution*math.sqrt(c.z*c.z+c.y*c.y)
+}
