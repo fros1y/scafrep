@@ -34,7 +34,7 @@ class Space(val xmin: Double = -50, val xmax: Double = 50,
   def evaluation_points = iterator
 
   def surfacePoints(fRep: FRep) = {
-    evaluation_points.filter(fRep.evaluate(_).within(0.05))
+    evaluation_points.filter(fRep.evaluate(_).within(0.1))
   }
 
   def to_pointcloud(fRep: FRep, filename: String): Unit = {
