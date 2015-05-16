@@ -9,11 +9,16 @@ case class EPoint(val c: Coordinate, val value: Double)
 {
   def within(epsilon: Double = 0.1): Boolean = math.abs(value) < epsilon*2
   def insideBy(epsilon: Double = 0.05): Boolean = value > epsilon
+  override def toString(): String = c.toString() + " = " + value.toString
 }
 
 trait FRep {
   def f(c: Coordinate): Double
   def evaluate(c: Coordinate): EPoint = EPoint(c, f(c))
+  def evaluate(x: Double,y: Double,z: Double): EPoint = {
+    val c = new Coordinate(x,y,z)
+    EPoint(c, f(c))
+  }
 }
 
 case class Sphere(val radius: Double = 10) extends FRep {
@@ -73,5 +78,4 @@ case class CylinderX(val radius: Double, val height: Double) extends FRep {
 
 case class TorusX(val radius: Double, val revolution: Double) extends FRep {
   def f(c: Coordinate): Double = math.pow(revolution - math.sqrt(c.x*c.x + c.y*c.y),2) + c.z*c.z - radius*radius
-    //radius*radius - c.y*c.y - c.z*c.z - revolution*revolution + 2*revolution*math.sqrt(c.z*c.z+c.y*c.y)
 }
