@@ -3,15 +3,16 @@
  */
 
 package scafrep.Transform
+
 import scafrep.FReps._
 import scafrep._
 
 case class Translate(val fRep: FRep, val shift: Coordinate) extends FRep {
-  def f(c: Coordinate) = fRep.f(c+shift)
+  def f(c: Coordinate) = fRep.f(c + shift)
 }
 
-case class Scale(val fRep: FRep, val xscale: Double = 2, val yscale: Double = 2, val zscale: Double = 2) extends FRep{
-  def f(c: Coordinate) = fRep.f(Coordinate(c.x/xscale,c.y/yscale,c.z/zscale))
+case class Scale(val fRep: FRep, val xscale: Double = 2, val yscale: Double = 2, val zscale: Double = 2) extends FRep {
+  def f(c: Coordinate) = fRep.f(Coordinate(c.x / xscale, c.y / yscale, c.z / zscale))
 }
 
 case class RotateZ(val fRep: FRep, val radians: Double = 0) extends FRep {

@@ -3,11 +3,9 @@
  */
 package scafrep
 
-import FReps._
-import BoundaryPositions._
+import scafrep.FReps._
 
 import scala.annotation.tailrec
-import scala.collection.mutable.{ListBuffer, ArrayBuffer}
 
 class Space(val xmin: Double = -50, val xmax: Double = 50,
             val ymin: Double = -50, val ymax: Double = 50,
@@ -17,11 +15,11 @@ class Space(val xmin: Double = -50, val xmax: Double = 50,
     findSurface(fRep, grid(xmin, xmax, ymin, ymax, zmin, zmax, 1).map(fRep.evaluate(_)), 1).map(_.c)
   }
 
-  def normal(fRep: FRep, p: Coordinate, d: Double=0.0001): Coordinate = {
+  def normal(fRep: FRep, p: Coordinate, d: Double = 0.0001): Coordinate = {
     val f = fRep.f(p)
-    val dfdx = (fRep.f(p+new Coordinate(d,0,0))-f)/d
-    val dfdy = (fRep.f(p+new Coordinate(0,d,0))-f)/d
-    val dfdz = (fRep.f(p+new Coordinate(0,0,d))-f)/d
+    val dfdx = (fRep.f(p + new Coordinate(d, 0, 0)) - f) / d
+    val dfdy = (fRep.f(p + new Coordinate(0, d, 0)) - f) / d
+    val dfdz = (fRep.f(p + new Coordinate(0, 0, d)) - f) / d
     val raw = new Coordinate(dfdx, dfdy, dfdz)
     raw / -raw.length()
   }

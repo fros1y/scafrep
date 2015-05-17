@@ -3,6 +3,7 @@
  */
 
 package scafrep.Booleans
+
 import scafrep.FReps._
 import scafrep._
 
@@ -27,10 +28,10 @@ case class BlendUnion(val f1: FRep, val f2: FRep, val a0: Double, val a1: Double
   def f(c: Coordinate) = {
     val f1c = f1.f(c)
     val f2c = f2.f(c)
-    val f1a1 = math.pow(f1c/a1,2)
-    val f2a2 = math.pow(f2c/a2,2)
+    val f1a1 = math.pow(f1c / a1, 2)
+    val f2a2 = math.pow(f2c / a2, 2)
 
-    f1c + f2c + math.sqrt(f1c*f1c+f2c*f2c) + a0 / (1+f1a1+f2a2)
+    f1c + f2c + math.sqrt(f1c * f1c + f2c * f2c) + a0 / (1 + f1a1 + f2a2)
   }
 }
 
@@ -38,9 +39,9 @@ case class BlendIntersect(val f1: FRep, val f2: FRep, val a0: Double, val a1: Do
   def f(c: Coordinate) = {
     val f1c = f1.f(c)
     val f2c = f2.f(c)
-    val f1a1 = math.pow(f1c/a1,2)
-    val f2a2 = math.pow(f2c/a2,2)
+    val f1a1 = math.pow(f1c / a1, 2)
+    val f2a2 = math.pow(f2c / a2, 2)
 
-    f1c + f2c - math.sqrt(f1c*f1c+f2c*f2c) + a0 / (1+f1a1+f2a2)
+    f1c + f2c - math.sqrt(f1c * f1c + f2c * f2c) + a0 / (1 + f1a1 + f2a2)
   }
 }
