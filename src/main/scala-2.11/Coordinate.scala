@@ -15,6 +15,10 @@ case class Coordinate(x: Double, y: Double, z: Double) {
 
   def +(that: Coordinate) = Coordinate(this.x + that.x, this.y + that.y, this.z + that.z)
 
+  def /(s: Double) = Coordinate(this.x / s, this.y / s, this.z / s)
+
+  def *(s: Double) = Coordinate(this.x * s, this.y * s, this.z * s)
+
   override def toString(): String =  x + " " + y + " " + z
 
   def length(): Double = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))

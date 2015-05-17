@@ -8,6 +8,12 @@ import Booleans._
 import Transform._
 
 object main extends App {
+  def time(f: => Unit)={
+    val s = System.currentTimeMillis
+    f
+    println("Run took: " + (System.currentTimeMillis - s))
+  }
+
   val space = new Space()
 
   //val scene = Sphere(30)
@@ -17,5 +23,5 @@ object main extends App {
   //val scene = BlendUnion(Sphere(20), Translate(Sphere(10),Coordinate(20,20,0)),5,1,1)
   //val scene = Intersection(Sphere(20), Translate(Sphere(20), Coordinate(10,10,0)))
   val scene = Union(Sphere(20), Translate(Sphere(20), Coordinate(10,10,0)))
-  space.to_pointcloud(scene, "out.xyz")
+  time(space.to_pointcloud(scene, "out.xyz"))
 }
