@@ -11,32 +11,7 @@ import scala.collection.mutable.{ListBuffer, ArrayBuffer}
 
 class Space(val xmin: Double = -50, val xmax: Double = 50,
             val ymin: Double = -50, val ymax: Double = 50,
-            val zmin: Double = -50, val zmax: Double = 50,
-            val step: Double = .25) extends Iterable[Coordinate] {
-
-  def iterator = new Iterator[Coordinate] {
-    var x: Double = xmin
-    var y: Double = ymin
-    var z: Double = zmin
-
-    def next(): Coordinate = {
-      val nextCoord = new Coordinate(x, y, z)
-      x += step
-      if (x > xmax) {
-        y += step
-        x = xmin
-      }
-      if (y > ymax) {
-        z += step
-        y = ymin
-      }
-      return nextCoord
-    }
-
-    def hasNext(): Boolean = z < zmax
-  }
-
-  def evaluation_points = iterator
+            val zmin: Double = -50, val zmax: Double = 50) {
 
   def surfacePoints(fRep: FRep) = {
     findSurface(fRep, grid(xmin, xmax, ymin, ymax, zmin, zmax, 1).map(fRep.evaluate(_)), 1).map(_.c)
@@ -89,7 +64,7 @@ class Space(val xmin: Double = -50, val xmax: Double = 50,
         refineStep).map(fRep.evaluate(_))
     }
 
-    if (step < 0.1)
+    if (step < 0.25)
       coordinates.filter(_.within(.005))
     else
       findSurface(fRep, coordinates.flatMap(_refinePoint(_, newStep)), newStep)
